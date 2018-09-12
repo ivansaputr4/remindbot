@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/aranair/remindbot/commands"
-	"github.com/aranair/remindbot/config"
-	"github.com/aranair/remindbot/handlers"
+	"github.com/ivansaputr4/remindbot/commands"
+	"github.com/ivansaputr4/remindbot/config"
+	"github.com/ivansaputr4/remindbot/handlers"
 
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
@@ -25,7 +25,7 @@ func main() {
 	defer db.Close()
 
 	ac := handlers.NewAppContext(db, conf, commands.NewCommandList())
-	gocron.Every(5).Minutes().Do(ac.CheckDue, conf.BOT.MainChatId, true)
+	gocron.Every(1).Minutes().Do(ac.CheckDue, conf.BOT.MainChatId, true)
 	fmt.Println("Starting timer")
 	<-gocron.Start()
 }

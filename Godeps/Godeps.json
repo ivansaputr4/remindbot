@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/aranair/remindbot",
+	"ImportPath": "github.com/ivansaputr4/remindbot",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v79",
 	"Packages": [

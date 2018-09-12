@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/aranair/remindbot/commands"
-	"github.com/aranair/remindbot/config"
-	"github.com/aranair/remindbot/handlers"
+	"github.com/ivansaputr4/remindbot/commands"
+	"github.com/ivansaputr4/remindbot/config"
+	"github.com/ivansaputr4/remindbot/handlers"
+	"github.com/julienschmidt/httprouter"
 
-	router "github.com/aranair/remindbot/router"
+	router "github.com/ivansaputr4/remindbot/router"
 
 	"database/sql"
 	_ "github.com/mattn/go-sqlite3"
@@ -37,9 +38,10 @@ func main() {
 
 	r := router.New()
 	r.POST("/reminders", stack.ThenFunc(ac.CommandHandler))
+	r.GET("/reminders", Healthz)
 
-	http.ListenAndServe(":8080", r)
-	fmt.Println("Server starting at port 8080.")
+	fmt.Println("Server starting at port 1234.")
+	http.ListenAndServe(":1234", r)
 }
 
 func initDB(datapath string) *sql.DB {
@@ -52,4 +54,9 @@ func checkErr(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func Healthz(w http.ResponseWriter, _ *http.Request, _ httprouter.Params) {
+	w.Header().Set("Content-Type", "application/json")
+	fmt.Fprintln(w, "ok")
 }
