@@ -25,7 +25,7 @@ func main() {
 	defer db.Close()
 
 	ac := handlers.NewAppContext(db, conf, commands.NewCommandList())
-	gocron.Every(1).Minutes().Do(ac.CheckDue, conf.BOT.MainChatId, true)
+	gocron.Every(5).Minutes().Do(ac.CheckDue, conf.BOT.MainChatId, true)
 	fmt.Println("Starting timer")
 	<-gocron.Start()
 }
