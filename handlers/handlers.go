@@ -114,7 +114,7 @@ func (ac *AppContext) clearall(chatId int64) {
 }
 
 func (ac *AppContext) list(chatId int64) {
-	fmt.Println("SELECT id, content, due_dt, due_day FROM reminders WHERE chat_id=" + chatId + " and due_dt>=" + time.Now())
+	fmt.Println("SELECT id, content, due_dt, due_day FROM reminders WHERE chat_id=" + strconv.FormatInt(chatId, 10) + " and due_dt>=" + time.Now().Format(time.RFC3339))
 	rows, err := ac.db.Query(`SELECT id, content, due_dt, due_day FROM reminders WHERE chat_id=$1 and due_dt>=$2`, chatId, time.Now())
 	checkErr(err)
 	defer rows.Close()
