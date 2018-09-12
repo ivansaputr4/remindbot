@@ -36,7 +36,7 @@ func NewCommandList() Commands {
 	now.TimeFormats = append(now.TimeFormats, "2Jan")
 
 	return Commands{
-		rmt:  compileRegexp(`(?im)(remind){1}(?:@brand_boti_bot me to)? ([^:\r\n]*)(?::?)([^:\r\n]*)(?::?)(.*)$`),
+		rmt:  compileRegexp(`(?im)(remind){1}(?:@brand_boti_bot)? ([^:\r\n]*)(?::?)([^:\r\n]*)(?::?)(.*)$`),
 		cd:   compileRegexp(`(?im)(check due).*$`),
 		l:    compileRegexp(`(?im)(list).*$`),
 		c:    compileRegexp(`(?im)(clear).* (\d+)$`),
