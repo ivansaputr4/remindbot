@@ -114,6 +114,7 @@ func (ac *AppContext) clearall(chatId int64) {
 }
 
 func (ac *AppContext) list(chatId int64) {
+	fmt.Println("SELECT id, content, due_dt, due_day FROM reminders WHERE chat_id=" + chatId + " and due_dt>=" + time.Now())
 	rows, err := ac.db.Query(`SELECT id, content, due_dt, due_day FROM reminders WHERE chat_id=$1 and due_dt>=$2`, chatId, time.Now())
 	checkErr(err)
 	defer rows.Close()
@@ -194,15 +195,13 @@ func (ac *AppContext) renum(chatId int64) {
 func (ac *AppContext) CheckDue(chatId int64, timedCheck bool) {
 	timenow := time.Now().Add(time.Minute * 15)
 	timepast := timenow.Add(time.Minute * 5)
-	fmt.Println(timenow)
+	fmt.Println(time.Now().Format(time.RFC3339))
 	fmt.Println("SELECT id, content, due_dt, due_day, chat_id FROM reminders WHERE due_dt>=" + timenow.Format(time.RFC3339) + " and due_dt<" + timepast.Format(time.RFC3339))
 	rows, err := ac.db.Query(
 		`SELECT id, content, due_dt, due_day, chat_id FROM reminders WHERE due_dt>=$1 and due_dt<$2`,
 		timenow.Format(time.RFC3339),
 		timepast.Format(time.RFC3339),
 	)
-	fmt.Println(err)
-	fmt.Println(rows)
 
 	checkErr(err)
 	defer rows.Close()
@@ -243,6 +242,7 @@ func (ac *AppContext) CheckDue(chatId int64, timedCheck bool) {
 				id)
 
 			checkErr(err)
+			defer rows.Close()
 		}
 	}
 }

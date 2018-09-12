@@ -54,8 +54,7 @@ func compileRegexp(s string) *regexp.Regexp {
 func (c *Commands) Extract(t string) (string, string, string, time.Time) {
 	var a []string
 	var r1, r2, r3, r4 = "", "", "", ""
-	fmt.Println("-----")
-	fmt.Println(t)
+
 	id, _ := time.LoadLocation("Asia/Jakarta")
 	// utc, _ := time.LoadLocation("UTC")
 
@@ -98,12 +97,6 @@ func (c *Commands) Extract(t string) (string, string, string, time.Time) {
 	r2 = s.ToLower(s.TrimSpace(r2))
 	r3 = s.ToLower(s.TrimSpace(r3))
 	r4 = s.ToLower(s.TrimSpace(r4))
-	fmt.Println("---")
-	fmt.Println(r1)
-	fmt.Println(r2)
-	fmt.Println(r3)
-	fmt.Println(r4)
-	fmt.Println("---")
 
 	tmrRegex := regexp.MustCompile("(?im)^tomorrow|tmr|tml")
 	todayRegex := regexp.MustCompile("(?im)today")
@@ -121,10 +114,8 @@ func (c *Commands) Extract(t string) (string, string, string, time.Time) {
 		r3 = "default"
 	}
 
-	fmt.Println(r3)
-	fmt.Println(r4)
 	due_date, err := now.Parse(r4)
-	fmt.Println(due_date.String())
+
 	var r4t time.Time
 	if err == nil {
 		// remind at 15 min before
@@ -134,11 +125,5 @@ func (c *Commands) Extract(t string) (string, string, string, time.Time) {
 		r4t = time.Time{}
 	}
 
-	fmt.Println("---")
-	fmt.Println(r1)
-	fmt.Println(r2)
-	fmt.Println(r3)
-	fmt.Println(r4t)
-	fmt.Println("-----------")
 	return r1, r2, r3, r4t
 }
