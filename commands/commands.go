@@ -42,7 +42,7 @@ func NewCommandList() Commands {
 		c:    compileRegexp(`(?im)(clear).* (\d+)$`),
 		rn:   compileRegexp(`(?im)(renum).*$`),
 		cl:   compileRegexp(`(?im)(clearall).*$`),
-		boti: compileRegexp(`(?im)(boti).*(?:!|~)?$`),
+		boti: compileRegexp(`(?im)(boti)@brand_boti_bot(?:!|~)?$`),
 	}
 }
 
